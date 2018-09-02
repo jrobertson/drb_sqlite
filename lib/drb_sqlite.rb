@@ -11,9 +11,15 @@ class DRbSQLite
 
   def initialize(raw_dbfile=nil, host: nil, port: '57000')
         
+    @port = port
+    
     DRb.start_service
-    @server = DRbObject.new nil, "druby://#{host}:#{port}"
-    load(raw_dbfile) if raw_dbfile
+    
+    if raw_dbfile then
+      load(raw_dbfile)
+    else
+      @server = DRbObject.new nil, "druby://#{host}:#{port}"
+    end    
         
   end
   
@@ -37,6 +43,7 @@ class DRbSQLite
     if raw_dbfile =~ /^sqlite:\/\// then
       host, @dbfile = raw_dbfile\
           .match(/(?<=^sqlite:\/\/)([^\/]+)\/(.*)/).captures
+      @server = DRbObject.new nil, "druby://#{host}:#{@port}"
     else
       @dbfile = raw_dbfile
     end
