@@ -65,6 +65,19 @@ class DRbSQLite
 
     @server.load_db(@dbfile)
   end
+
+  def results_as_hash()
+    @server.results_as_hash @dbfile
+  end
+  
+  def results_as_hash=(val)
+    puts 'inside results_as_hash=()'.info if @debug
+    @server.results_as_hash = [@dbfile, val]
+  end
+  
+  def table_info(s)
+    @server.table_info @dbfile, s
+  end
   
   def query(*args, &blk)
     
