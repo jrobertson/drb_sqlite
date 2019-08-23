@@ -79,6 +79,10 @@ class DRbSQLite
     @server.table_info @dbfile, s
   end
   
+  def tables()
+    @server.tables @dbfile
+  end  
+  
   def query(*args, &blk)
     
     r = @server.query @dbfile, *args, &blk
