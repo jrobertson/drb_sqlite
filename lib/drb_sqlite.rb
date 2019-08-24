@@ -44,6 +44,10 @@ class DRbSQLite
     @server.exists? dbfile
   end
   
+  def fields(table)
+    @server.fields @dbfile, table
+  end  
+  
   def load_db(raw_dbfile)
     
     puts 'DRbSQLite | inside load_db'.info if @debug
